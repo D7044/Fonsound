@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <audio controls src="static/file/METAMORPHOSIS.mp3">
+        <a href="static/file/METAMORPHOSIS.mp3">Download audio</a>
+    </audio>
+    <form action="/index" method="POST">
+        <input class='settings' name="set_audio_volume" id="set_audio_volume" type="range" max="100" min="0"
+               value="50" oninput="fun1()">
+        <div id="send_result1">50</div>
+        <input class='settings' name="set_audio_speed" id="set_audio_speed" type="range" max="100" min="0"
+               value="50" oninput="fun2()">
+        <div id="send_result2">50</div>
+    </form>
+{% endblock %}
