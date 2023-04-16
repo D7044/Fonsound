@@ -3,9 +3,6 @@
 {% block content %}
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="static/js/main.js"></script>
-    <audio controls src="static/file/METAMORPHOSIS.mp3">
-        <a href="static/file/METAMORPHOSIS.mp3">Download audio</a>
-    </audio>
     <form action="/index" method="POST">
         <input class='settings' name="set_audio_volume" id="set_audio_volume" type="range" max="100" min="0"
                value="50" oninput="fun1()">
@@ -13,5 +10,28 @@
         <input class='settings' name="set_audio_speed" id="set_audio_speed" type="range" max="100" min="0"
                value="50" oninput="fun2()">
         <div id="send_result2">50</div>
+        <input class='settings' name="set_audio_high" id="set_audio_high" type="range" max="100" min="0"
+               value="0" oninput="fun3()">
+        <div id="send_result3">50</div>
+        <input class='settings' name="set_audio_low" id="set_audio_low" type="range" max="100" min="0"
+               value="0" oninput="fun4()">
+        <div id="send_result4">50</div>
+        <input class='settings' name="set_audio_pan" id="set_audio_pan" type="range" max="100" min="0"
+               value="50" oninput="fun5()">
+        <div id="send_result5">50</div>
+    </form>
+    <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="audio_file"></label>
+                <input type="file" id="audio_file" name="file"
+                       style="color:transparent;" onchange="this.style.color = 'black';">
+            </div>
+        <button type="submit" class="btn btn-primary">Выбрать</button>
+    </form>
+    <audio controls="controls" src="static/file/METAMORPHOSIS.mp3">
+        <a href="static/file/METAMORPHOSIS.mp3">Download audio</a>
+    </audio>
+    <form method="get" action="static/file/louder_song.mp3">
+        <button type="submit">Download!</button>
     </form>
 {% endblock %}
