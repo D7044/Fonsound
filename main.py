@@ -21,7 +21,7 @@ def change_volume(data):
 
 def speed_up(sound, speed):
     if (int(speed) < 50) and (speed != 1.0):
-        speed = 1.0 - (int(speed)) / 100
+        speed = 1.0 - (50 - int(speed)) / 100
     elif (int(speed) > 50) and (speed != 1.0):
         speed = 1.0 + (int(speed)) / 100
     elif int(speed) == 50:
@@ -34,9 +34,9 @@ def speed_up(sound, speed):
 
 def pan_all(vol):
     result = 0
-    if int(vol) < 50:
+    if int(vol) < 50 and vol != 0:
         result = -((50 - int(vol)) * 2 / 100)
-    elif int(vol) > 50:
+    elif int(vol) > 50 and vol != 0:
         result = (int(vol) - 50) * 2 / 100
     return result
 
@@ -44,9 +44,11 @@ def pan_all(vol):
 @app.route('/')
 @app.route('/index')
 def index():
+    f = 0
     song = None
     if os.path.isfile('static/file/new.wav'):
         song = AudioSegment.from_mp3(r"static/file/new.wav")
+        f = 1
     volume = request.args.get('set_audio_volume_value')
     speed = request.args.get('set_audio_speed_value')
     high_pass = request.args.get('set_audio_high_pass_value')
@@ -79,9 +81,8 @@ def index():
         louder_song = louder_song.pan(pan_all(pan))
 
         louder_song.export("static/file/louder_song.mp3")
-        print('True')
 
-    return render_template('index.html')
+    return render_template('index.html', new_audio_flag=f)
 
 
 @app.route('/', methods=['POST'])
@@ -90,6 +91,10 @@ def upload_file():
     if uploaded_file.filename != '':
         uploaded_file.save('static/file/new.wav')
     return redirect(url_for('index'))
+
+
+@app.route('/library')
+def library():
 
 
 if __name__ == '__main__':

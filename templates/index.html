@@ -1,37 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h1>Эквалайзер</h1>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="static/js/main.js"></script>
-    <form action="/index" method="POST">
-        <input class='settings' name="set_audio_volume" id="set_audio_volume" type="range" max="100" min="0"
-               value="50" oninput="fun1()">
-        <div id="send_result1">50</div>
-        <input class='settings' name="set_audio_speed" id="set_audio_speed" type="range" max="100" min="0"
-               value="50" oninput="fun2()">
-        <div id="send_result2">50</div>
-        <input class='settings' name="set_audio_high" id="set_audio_high" type="range" max="100" min="0"
-               value="0" oninput="fun3()">
-        <div id="send_result3">50</div>
-        <input class='settings' name="set_audio_low" id="set_audio_low" type="range" max="100" min="0"
-               value="0" oninput="fun4()">
-        <div id="send_result4">50</div>
-        <input class='settings' name="set_audio_pan" id="set_audio_pan" type="range" max="100" min="0"
-               value="50" oninput="fun5()">
-        <div id="send_result5">50</div>
-    </form>
-    <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="audio_file"></label>
-                <input type="file" id="audio_file" name="file"
-                       style="color:transparent;" onchange="this.style.color = 'black';">
+    <div id="listen">
+        <form id="names" class="bg-warning">
+            <div class="btn-group" id="names_div">
+                <div id="name1">Volume</div>
+                <div id="name2">Speed</div>
+                <div id="name3">High pass filter</div>
+                <div id="name4">Low pass filter</div>
+                <div id="name5">Pan</div>
             </div>
-        <button type="submit" class="btn btn-primary">Выбрать</button>
-    </form>
-    <audio controls="controls" src="static/file/METAMORPHOSIS.mp3">
-        <a href="static/file/METAMORPHOSIS.mp3">Download audio</a>
-    </audio>
-    <form method="get" action="static/file/louder_song.mp3">
-        <button type="submit">Download!</button>
-    </form>
+        </form>
+        <form action="/index" method="POST" id="audio_settings" class="bg-warning">
+            <div class="btn-group">
+                <input class='settings' name="set_audio_volume" id="set_audio_volume" type="range" max="100" min="0"
+                       value="50" oninput="fun1()">
+
+                <input class='settings' name="set_audio_speed" id="set_audio_speed" type="range" max="100" min="0"
+                       value="50" oninput="fun2()">
+
+                <input class='settings' name="set_audio_high" id="set_audio_high" type="range" max="100" min="0"
+                       value="0" oninput="fun3()">
+
+                <input class='settings' name="set_audio_low" id="set_audio_low" type="range" max="100" min="0"
+                       value="0" oninput="fun4()">
+
+                <input class='settings' name="set_audio_pan" id="set_audio_pan" type="range" max="100" min="0"
+                       value="50" oninput="fun5()">
+
+            </div>
+        </form>
+        <form id="results" class="bg-warning">
+            <div class="btn-group" id="results_div">
+                <div class="result" id="send_result1">50</div>
+                <div class="result" id="send_result2">50</div>
+                <div class="result" id="send_result3">0</div>
+                <div class="result" id="send_result4">0</div>
+                <div class="result" id="send_result5">50</div>
+            </div>
+        </form>
+        <form action="/" method="post" enctype="multipart/form-data" id="file_result" class="bg-warning">
+                <div class="form-group" id="file_chose">
+                    <label for="audio_file"></label>
+                    <input type="file" id="audio_file" name="file"
+                           style="color:transparent;" onchange="this.style.color = 'black';">
+                </div>
+            <button id="file_button" type="submit" class="btn btn-primary">Выбрать</button>
+
+        </form>
+        {% if new_audio_flag == 1 %}
+                <form action="static/file/louder_song.mp3">
+                    <button type="submit" id="listen_button">Слушать</button>
+                </form>
+        {% endif %}
+    </div>
 {% endblock %}
