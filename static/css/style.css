@@ -1,0 +1,110 @@
+h1 {
+  text-align:center;
+  font-size: 28px
+}
+
+body {
+  margin: 0 auto;
+}
+
+#audio_settings {
+  width: 645px;
+  height: 200px;
+}
+
+#results {
+  width: 645px;
+  position:relative;
+  bottom: 15px;
+
+}
+
+#file_result {
+
+  width: 645px;
+  height: 100px;
+
+}
+
+#listen {
+    margin: 0 auto;
+    width: 645px;
+    height: 200px;
+}
+
+form {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.settings {
+  display: inline-block;
+  position:relative;
+  transform: rotate(270deg);
+  bottom: -80px;
+}
+
+#send_result1 {
+  margin-left: 57px;
+}
+
+#send_result2 {
+  margin-left: 111.5px;
+}
+
+#send_result3 {
+  margin-left: 111.5px;
+}
+
+#send_result4 {
+  margin-left: 114px;
+}
+
+#send_result5 {
+  margin-left: 113px;
+}
+
+#listen_button {
+  position:relative;
+  color: blue;
+  margin-left: 565px;
+  bottom: 70px;
+
+}
+
+#file_chose {
+  position: relative;
+  bottom: -10px;
+
+}
+
+#file_button {
+  position: relative;
+  margin-left: 5px
+}
+
+#names {
+  width: 645px;
+  position:relative;
+
+}
+
+#name1 {
+  margin-left: 40px;
+}
+
+#name2 {
+  margin-left: 77px;
+}
+
+#name3 {
+  margin-left: 52px;
+}
+
+#name4 {
+  margin-left: 37px;
+}
+
+#name5 {
+  margin-left: 58px;
+}

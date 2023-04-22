@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Аудио библиотека</h3>
+{% for item in sounds%}
+<div id='for_audio_library' class="col-md6 border rounded">
+    <p>{{item.name}}</p>
+    <p>{{item.way}}</p>
+    <audio controls src="{{item.way}}">
+        <a href="{{item.way}}">Download audio</a>
+    </audio>
+</div>
+{% endfor %}
+{% endblock %}

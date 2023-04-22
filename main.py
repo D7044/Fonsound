@@ -6,7 +6,11 @@ from pydub import AudioSegment
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 
+from data import db_session
+from data.sounds import Sound
+
 app = Flask(__name__)
+db_session.global_init("db/sounds.sqlite")
 pydub.AudioSegment.converter = "ffmpeg-4.0.2/bin/ffmpeg.exe"
 
 
@@ -95,6 +99,9 @@ def upload_file():
 
 @app.route('/library')
 def library():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound)
+    return render_template("library.html", sounds=sounds)
 
 
 if __name__ == '__main__':
