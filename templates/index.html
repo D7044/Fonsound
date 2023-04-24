@@ -5,7 +5,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="static/js/main.js"></script>
     <div id="listen">
-        <form id="names" class="bg-warning">
+        <form id="names">
             <div class="btn-group" id="names_div">
                 <div id="name1">Volume</div>
                 <div id="name2">Speed</div>
@@ -14,7 +14,7 @@
                 <div id="name5">Pan</div>
             </div>
         </form>
-        <form action="/index" method="POST" id="audio_settings" class="bg-warning">
+        <form action="/equalizer" method="POST" id="audio_settings">
             <div class="btn-group">
                 <input class='settings' name="set_audio_volume" id="set_audio_volume" type="range" max="100" min="0"
                        value="50" oninput="fun1()">
@@ -33,7 +33,7 @@
 
             </div>
         </form>
-        <form id="results" class="bg-warning">
+        <form id="results">
             <div class="btn-group" id="results_div">
                 <div class="result" id="send_result1">50</div>
                 <div class="result" id="send_result2">50</div>
@@ -42,7 +42,7 @@
                 <div class="result" id="send_result5">50</div>
             </div>
         </form>
-        <form action="/" method="post" enctype="multipart/form-data" id="file_result" class="bg-warning">
+        <form action="/" method="post" enctype="multipart/form-data" id="file_result">
                 <div class="form-group" id="file_chose">
                     <label for="audio_file"></label>
                     <input type="file" id="audio_file" name="file"

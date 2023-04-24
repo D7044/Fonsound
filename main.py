@@ -14,6 +14,7 @@ db_session.global_init("db/sounds.sqlite")
 pydub.AudioSegment.converter = "ffmpeg-4.0.2/bin/ffmpeg.exe"
 
 
+# функция для изменения громкости
 def change_volume(data):
     output = 0
     if int(data) < 50:
@@ -23,6 +24,7 @@ def change_volume(data):
     return output
 
 
+# функция для ускорения аудио файла
 def speed_up(sound, speed):
     if (int(speed) < 50) and (speed != 1.0):
         speed = 1.0 - (50 - int(speed)) / 100
@@ -36,6 +38,7 @@ def speed_up(sound, speed):
     return sound_with_altered_frame_rate.set_frame_rate(sound.frame_rate)
 
 
+# функция для перемещения звука из левого наушника в правый и наоборот
 def pan_all(vol):
     result = 0
     if int(vol) < 50 and vol != 0:
@@ -45,21 +48,69 @@ def pan_all(vol):
     return result
 
 
+# страница со всеми аудио файлами
 @app.route('/')
-@app.route('/index')
-def index():
+@app.route('/library')
+def library():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound)
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с аудио файлами категории природа
+@app.route('/nature')
+def nature():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound).filter(Sound.category == 'Природа')
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с аудио файлами категории приборы
+@app.route('/instrumentation')
+def instrumentation():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound).filter(Sound.category == 'Приборы')
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с аудио файлами категории насилие
+@app.route('/violence')
+def violence():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound).filter(Sound.category == 'Насилие')
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с аудио файлами категории видеоигры
+@app.route('/video_games')
+def video_games():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound).filter(Sound.category == 'Видеоигры')
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с аудио файлами категории быт
+@app.route('/mode_of_life')
+def mode_of_life():
+    db_sess = db_session.create_session()
+    sounds = db_sess.query(Sound).filter(Sound.category == 'Быт')
+    return render_template("library.html", sounds=sounds)
+
+
+# страница с эквалайзером
+@app.route('/equalizer')
+def equalizer():
     f = 0
     song = None
     if os.path.isfile('static/file/new.wav'):
         song = AudioSegment.from_mp3(r"static/file/new.wav")
         f = 1
+    # получение значений ползунков
     volume = request.args.get('set_audio_volume_value')
     speed = request.args.get('set_audio_speed_value')
     high_pass = request.args.get('set_audio_high_pass_value')
     low_pass = request.args.get('set_audio_low_pass_value')
     pan = request.args.get('set_audio_pan_value')
-    print(volume)
-    print(speed)
     if volume is None:
         volume = 50
 
@@ -75,6 +126,7 @@ def index():
     if pan is None:
         pan = 0
 
+    # сама обработка звука
     if song is not None:
         louder_song = song + change_volume(volume)
         louder_song = speed_up(louder_song, speed)
@@ -85,23 +137,18 @@ def index():
         louder_song = louder_song.pan(pan_all(pan))
 
         louder_song.export("static/file/louder_song.mp3")
+        print('True')
 
     return render_template('index.html', new_audio_flag=f)
 
 
+# выбор файла для эквалайзера
 @app.route('/', methods=['POST'])
 def upload_file():
     uploaded_file = request.files['file']
     if uploaded_file.filename != '':
         uploaded_file.save('static/file/new.wav')
-    return redirect(url_for('index'))
-
-
-@app.route('/library')
-def library():
-    db_sess = db_session.create_session()
-    sounds = db_sess.query(Sound)
-    return render_template("library.html", sounds=sounds)
+    return redirect(url_for('equalizer'))
 
 
 if __name__ == '__main__':

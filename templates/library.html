@@ -2,10 +2,16 @@
 
 {% block content %}
 <h3>Аудио библиотека</h3>
+<div id="category" class="col-md6 border rounded">
+    <a href="/nature" class="btn"><h4>Природа</h4></a>
+    <a href="/instrumentation" class="btn"><h4>Приборы</h4></a>
+    <a href="/violence" class="btn"><h4>Насилие</h4></a><br>
+    <a href="/video_games" class="btn"><h4>Видеоигры</h4></a>
+    <a href="/mode_of_life" class="btn"><h4>Быт</h4></a>
+</div>
 {% for item in sounds%}
 <div id='for_audio_library' class="col-md6 border rounded">
-    <p>{{item.name}}</p>
-    <p>{{item.way}}</p>
+    <h2>{{item.name}}</h2>
     <audio controls src="{{item.way}}">
         <a href="{{item.way}}">Download audio</a>
     </audio>

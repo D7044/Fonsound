@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     $('.settings').click(function(){
       $.ajax({
-        url: '/index',
+        url: '/equalizer',
         type: 'get',
         contentType: 'application/json',
         data: {
